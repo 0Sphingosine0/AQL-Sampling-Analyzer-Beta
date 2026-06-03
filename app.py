@@ -97,47 +97,6 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-/* ── GLOBAL ── */
-.stApp {
-    background: var(--bg-grad) !important;
-    background-attachment: fixed !important;
-    color: var(--text-bright) !important;
-    font-family: 'Nunito', sans-serif;
-}
-
-/* Soft animated background orbs */
-.stApp::before {
-    content: '';
-    position: fixed;
-    top: -20%;
-    left: -10%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(ellipse, rgba(0,180,255,0.07) 0%, transparent 70%);
-    animation: drift1 18s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-.stApp { 
-  background: var(--bg) !important; 
-  color: var(--text) !important; 
-  font-family: 'Inter', sans-serif; 
-}
-}
-.stApp::after {
-    content: '';
-    position: fixed;
-    bottom: -10%;
-    right: -5%;
-    width: 50%;
-    height: 50%;
-    background: radial-gradient(ellipse, rgba(0,201,177,0.06) 0%, transparent 70%);
-    animation: drift2 22s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-@keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(5%,8%); } }
-@keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-6%,-5%); } }
-
 /* ── HEADER ── */
 .app-header {
     background: linear-gradient(135deg,
