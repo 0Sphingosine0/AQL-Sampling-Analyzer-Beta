@@ -790,8 +790,7 @@ with tab2:
 
     # 1. GAUGE CHART
     with col1:
-decision_pass = n_defects <= ac 
-        
+        decision_pass = n_defects <= ac 
         gauge_color = COQUETTE_SAGE if decision_pass else COQUETTE_PINK
         fig_gauge = go.Figure(go.Indicator(
             mode="gauge+number+delta",
