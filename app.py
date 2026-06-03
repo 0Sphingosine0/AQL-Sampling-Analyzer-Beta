@@ -43,7 +43,6 @@ with st.expander("ℹ️ TENTANG APLIKASI & KELOMPOK 7", expanded=True):
 # ─────────────────────────────────────────────
 # FRUTIGER AERO CSS - DINAMIS
 # ─────────────────────────────────────────────
-
 if theme_mode:
     # --- CONFIG DARK MODE (Bawaan Asli) ---
     bg_gradient  = "linear-gradient(160deg, #061728 0%, #0d2f50 35%, #07213a 65%, #041220 100%)"
