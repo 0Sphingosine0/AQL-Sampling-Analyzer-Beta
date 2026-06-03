@@ -660,7 +660,7 @@ decision_pass = n_defects <= ac
 # ─────────────────────────────────────────────
 # TAB LAYOUT
 # ─────────────────────────────────────────────
-tab1, tab2, tab3, tab4 = st.tabs(["📊 Hasil Analisis", "📈 Visualisasi", "📋 Tabel AQL", "📄 Laporan"])
+tab1, tab2, tab3, tab4 = st.tabs(["📊 Hasil Analisis","📋 Tabel AQL", "📄 Laporan"])
 
 # ── TAB 1: HASIL ──────────────────────────────
 with tab1:
@@ -728,113 +728,6 @@ with tab1:
 - Rasio sampling: **{sampling_ratio:.1f}%** dari lot
 - Confidence level: **~95%** (General Inspection Level II)
         """)
-
-# ── TAB 2: VISUALISASI ────────────────────────
-with tab2:
-    st.markdown('<div class="section-title">Visualisasi Data Sampling</div>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-
-    # Gauge
-    with col1:
-        gauge_color = AQUA if decision_pass else DANGER_COLOR
-        fig_gauge = go.Figure(go.Indicator(
-            mode="gauge+number+delta",
-            value=n_defects,
-            delta={'reference': ac, 'increasing': {'color': DANGER_COLOR}, 'decreasing': {'color': AQUA}},
-            title={'text': "Jumlah Defek vs Accept Number", 'font': {'color': '#c8e8f8', 'family': FONT_FAMILY, 'size': 14}},
-            gauge={
-                'axis': {'range': [0, max(re*2, n_defects*1.5, 5)], 'tickcolor': TICK_COLOR},
-                'bar': {'color': gauge_color, 'thickness': 0.25},
-                'bgcolor': 'rgba(10,30,60,0.5)',
-                'borderwidth': 1,
-                'bordercolor': 'rgba(255,255,255,0.15)',
-                'steps': [
-                    {'range': [0, ac],                              'color': 'rgba(0,201,177,0.12)'},
-                    {'range': [ac, re],                             'color': 'rgba(243,156,18,0.12)'},
-                    {'range': [re, max(re*2, n_defects*1.5, 5)],   'color': 'rgba(231,76,60,0.12)'},
-                ],
-                'threshold': {'line': {'color': DANGER_COLOR, 'width': 2.5}, 'thickness': 0.75, 'value': re}
-            },
-            number={'font': {'color': gauge_color, 'family': 'Exo 2, sans-serif', 'size': 38}}
-        ))
-        fig_gauge.update_layout(**aero_layout(height=320))
-        st.plotly_chart(fig_gauge, use_container_width=True)
-
-    # Donut
-    with col2:
-        good = max(sample_size - n_defects, 0)
-        fig_pie = go.Figure(go.Pie(
-            labels=['Baik', 'Defek'],
-            values=[good, n_defects],
-            hole=0.6,
-            marker=dict(
-                colors=[AQUA, DANGER_COLOR],
-                line=dict(color='rgba(10,25,50,0.8)', width=2)
-            ),
-            textfont=dict(family=FONT_FAMILY, size=13, color='#e8f8ff'),
-        ))
-        fig_pie.update_layout(
-            **aero_layout(
-                height=320,
-                title=dict(text='Komposisi Sampel', font=dict(family='Exo 2', color='#c8e8f8', size=14)),
-                legend=dict(font=dict(color='#c8e8f8'))
-            )
-        )
-        st.plotly_chart(fig_pie, use_container_width=True)
-
-    # Sensitivity bar
-    st.markdown('<div class="section-title">Analisis Sensitivitas — Keputusan per Jumlah Defek</div>', unsafe_allow_html=True)
-    max_def = max(re * 3, 10)
-    defect_range = list(range(0, max_def + 1))
-    colors_bar   = [AQUA if d <= ac else DANGER_COLOR for d in defect_range]
-    fig_bar = go.Figure(go.Bar(
-        x=defect_range,
-        y=defect_range,
-        marker=dict(color=colors_bar, line=dict(color='rgba(255,255,255,0.08)', width=1)),
-        text=['ACCEPT' if d <= ac else 'REJECT' for d in defect_range],
-        textposition='auto',
-        textfont=dict(family='Exo 2, sans-serif', size=10, color='#ffffff'),
-    ))
-    fig_bar.add_vline(x=ac+0.5, line_color=GOLD_COLOR, line_dash='dash', line_width=1.5,
-                      annotation_text=f'Batas Ac={ac}', annotation_font_color=GOLD_COLOR)
-    fig_bar.update_layout(
-        **aero_layout(
-            height=280,
-            xaxis=dict(title='Jumlah Defek', gridcolor=GRID_COLOR, tickcolor=TICK_COLOR, color=TICK_COLOR),
-            yaxis=dict(title='Jumlah Defek', gridcolor=GRID_COLOR, tickcolor=TICK_COLOR, color=TICK_COLOR),
-            showlegend=False
-        )
-    )
-    st.plotly_chart(fig_bar, use_container_width=True)
-
-    # OC Curve
-    st.markdown('<div class="section-title">OC Curve — Kurva Karakteristik Operasi</div>', unsafe_allow_html=True)
-    p_values  = np.linspace(0, 0.3, 200)
-    pa_values = []
-    for p in p_values:
-        pa = sum(math.comb(sample_size, k) * (p**k) * ((1-p)**(sample_size-k)) for k in range(ac+1))
-        pa_values.append(pa * 100)
-
-    fig_oc = go.Figure()
-    fig_oc.add_trace(go.Scatter(
-        x=p_values*100, y=pa_values,
-        mode='lines', name='P(Accept)',
-        line=dict(color=AQUA, width=2.5),
-        fill='tozeroy', fillcolor='rgba(0,201,177,0.07)'
-    ))
-    fig_oc.add_vline(x=aql_level, line_color=GOLD_COLOR, line_dash='dot',
-                     annotation_text=f'AQL={aql_level}%', annotation_font_color=GOLD_COLOR)
-    fig_oc.add_hline(y=95, line_color='rgba(255,255,255,0.3)', line_dash='dot',
-                     annotation_text='95%', annotation_font_color=TICK_COLOR)
-    fig_oc.update_layout(
-        **aero_layout(
-            height=300,
-            xaxis=dict(title='Defect Rate (%)', gridcolor=GRID_COLOR, tickcolor=TICK_COLOR, color=TICK_COLOR),
-            yaxis=dict(title='P(Accept) %', gridcolor=GRID_COLOR, tickcolor=TICK_COLOR, color=TICK_COLOR, range=[0,105]),
-            legend=dict(font=dict(color='#c8e8f8'))
-        )
-    )
-    st.plotly_chart(fig_oc, use_container_width=True)
 
 # ── TAB 3: TABEL AQL ─────────────────────────
 with tab3:
