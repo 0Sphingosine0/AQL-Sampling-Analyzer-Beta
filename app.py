@@ -660,7 +660,7 @@ decision_pass = n_defects <= ac
 # ─────────────────────────────────────────────
 # TAB LAYOUT
 # ─────────────────────────────────────────────
-tab1, tab2, tab3, tab4 = st.tabs(["📊 Hasil Analisis","📋 Tabel AQL", "📄 Laporan"])
+tab1, tab2, tab4 = st.tabs(["📊 Hasil Analisis", "📋 Tabel AQL", "📄 Laporan"])
 
 # ── TAB 1: HASIL ──────────────────────────────
 with tab1:
