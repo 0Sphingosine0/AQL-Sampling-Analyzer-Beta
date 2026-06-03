@@ -41,269 +41,503 @@ with st.expander("ℹ️ TENTANG APLIKASI & KELOMPOK 7", expanded=True):
     """)
     
 # ─────────────────────────────────────────────
-# FRUTIGER AERO CSS - DINAMIS
+# FRUTIGER AERO CSS
 # ─────────────────────────────────────────────
-if theme_mode:
-    # --- CONFIG DARK MODE (Bawaan Asli) ---
-    bg_gradient  = "linear-gradient(160deg, #061728 0%, #0d2f50 35%, #07213a 65%, #041220 100%)"
-    text_bright  = "#e8f8ff"
-    text_mid     = "#a8d8ea"
-    text_soft    = "#6ba3be"
-    white_glass  = "rgba(255,255,255,0.12)"
-    white_rim    = "rgba(255,255,255,0.28)"
-    frost        = "rgba(255,255,255,0.06)"
-    sidebar_bg   = "linear-gradient(180deg, rgba(6,23,40,0.97) 0%, rgba(10,37,64,0.97) 100%)"
-else:
-    # --- CONFIG LIGHT MODE (Kontras Tinggi) ---
-    bg_gradient  = "linear-gradient(160deg, #eef7ff 0%, #d2e9f9 50%, #bce0fd 100%)"
-    text_bright  = "#0a2540" 
-    text_mid     = "#1a5276" 
-    text_soft    = "#2e86c1" 
-    white_glass  = "rgba(255,255,255,0.75)" 
-    white_rim    = "rgba(10,37,64,0.25)"   
-    frost        = "rgba(10,37,64,0.05)"
-    sidebar_bg   = "linear-gradient(180deg, rgba(235,245,255,0.97) 0%, rgba(210,233,251,0.97) 100%)"
-
-st.markdown(f"""
+st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Exo+2:wght@300;400;600;700&display=swap');
 
-:root {{
-  --sky-deep:    #0a2540;
-  --sky-mid:     #1a5276;
-  --sky-light:   #2e86c1;
-  --aqua:        #00c9b1;
-  --aqua-bright: #00ffdd;
-  --aqua-glow:   rgba(0,201,177,0.35);
-  --green-fresh: #27ae60;
-  --danger:      #e74c3c;
-  --warn:        #f39c12;
-  
-  /* Nilai Variabel di bawah ini mengikuti pilihan Sakelar */
-  --white-glass: {white_glass};
-  --white-rim:   {white_rim};
-  --frost:       {frost};
-  --text-bright: {text_bright};
-  --text-mid:    {text_mid};
-  --text-soft:   {text_soft};
-  --bg-grad:     {bg_gradient};
-}}
+:root {
+    --sky-deep:    #0a2540;
+    --sky-mid:     #1a5276;
+    --sky-light:   #2e86c1;
+    --aqua:        #00c9b1;
+    --aqua-bright: #00ffdd;
+    --aqua-glow:   rgba(0,201,177,0.35);
+    --green-fresh: #27ae60;
+    --white-glass: rgba(255,255,255,0.12);
+    --white-rim:   rgba(255,255,255,0.28);
+    --frost:       rgba(255,255,255,0.06);
+    --text-bright: #e8f8ff;
+    --text-mid:    #a8d8ea;
+    --text-soft:   #6ba3be;
+    --danger:      #e74c3c;
+    --warn:        #f39c12;
+    --bg-grad: linear-gradient(160deg, #061728 0%, #0d2f50 35%, #07213a 65%, #041220 100%);
+}
 
 /* ── GLOBAL ── */
-.stApp {{
-  background: var(--bg-grad) !important;
-  background-attachment: fixed !important;
-  color: var(--text-bright) !important;
-  font-family: 'Nunito', sans-serif;
-}}
+.stApp {
+    background: var(--bg-grad) !important;
+    background-attachment: fixed !important;
+    color: var(--text-bright) !important;
+    font-family: 'Nunito', sans-serif;
+}
 
 /* Soft animated background orbs */
-.stApp::before {{
-  content: '';
-  position: fixed;
-  top: -20%;
-  left: -10%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(ellipse, rgba(0,180,255,0.07) 0%, transparent 70%);
-  animation: drift1 18s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}}
-
-.stApp::after {{
-  content: '';
-  position: fixed;
-  bottom: -10%;
-  right: -5%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(ellipse, rgba(0,201,177,0.06) 0%, transparent 70%);
-  animation: drift2 22s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}}
-
-@keyframes drift1 {{
-  from {{ transform: translate(0,0); }}
-  to {{ transform: translate(5%,8%); }}
-}}
-
-@keyframes drift2 {{
-  from {{ transform: translate(0,0); }}
-  to {{ transform: translate(-6%,-5%); }}
-}}
+.stApp::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(ellipse, rgba(0,180,255,0.07) 0%, transparent 70%);
+    animation: drift1 18s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+.stApp { 
+  background: var(--bg) !important; 
+  color: var(--text) !important; 
+  font-family: 'Inter', sans-serif; 
+}
+}
+.stApp::after {
+    content: '';
+    position: fixed;
+    bottom: -10%;
+    right: -5%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(ellipse, rgba(0,201,177,0.06) 0%, transparent 70%);
+    animation: drift2 22s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+@keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(5%,8%); } }
+@keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-6%,-5%); } }
 
 /* ── HEADER ── */
-.app-header {{
-  background: linear-gradient(135deg, rgba(255,255,255,0.13) 0%, rgba(0,180,255,0.10) 40%, rgba(0,201,177,0.08) 100%);
-  border: 1px solid var(--white-rim);
-  border-radius: 20px;
-  padding: 32px 40px 28px;
-  margin-bottom: 28px;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.20), 0 0 60px rgba(0,201,177,0.08);
-}}
-
-.app-header::before {{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-}}
-
-.app-header::after {{
-  content: '';
-  position: absolute;
-  top: -60%;
-  right: -10%;
-  width: 45%;
-  height: 220%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
-  transform: rotate(-15deg);
-  pointer-events: none;
-}}
-
-.app-title {{
-  font-family: 'Exo 2', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--text-bright) 0%, #a8f0e8 50%, var(--aqua) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 2px;
-  margin: 0;
-  text-shadow: none;
-  filter: drop-shadow(0 0 20px rgba(0,201,177,0.5));
-}}
-
-.app-subtitle {{
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text-mid);
-  margin-top: 6px;
-  letter-spacing: 1.5px;
-  opacity: 0.85;
-}}
-
-.header-badge {{
-  display: inline-block;
-  background: rgba(0,201,177,0.18);
-  border: 1px solid rgba(0,201,177,0.4);
-  border-radius: 20px;
-  padding: 3px 14px;
-  font-size: 0.75rem;
-  color: var(--aqua);
-  letter-spacing: 1px;
-  margin-top: 10px;
-  font-weight: 600;
-}}
+.app-header {
+    background: linear-gradient(135deg,
+        rgba(255,255,255,0.13) 0%,
+        rgba(0,180,255,0.10) 40%,
+        rgba(0,201,177,0.08) 100%);
+    border: 1px solid var(--white-rim);
+    border-radius: 20px;
+    padding: 32px 40px 28px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.20),
+        0 0 60px rgba(0,201,177,0.08);
+}
+.app-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+}
+.app-header::after {
+    content: '';
+    position: absolute;
+    top: -60%; right: -10%;
+    width: 45%; height: 220%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+.app-title {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #a8f0e8 50%, var(--aqua) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(0,201,177,0.5));
+}
+.app-subtitle {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-mid);
+    margin-top: 6px;
+    letter-spacing: 1.5px;
+    opacity: 0.85;
+}
+.header-badge {
+    display: inline-block;
+    background: rgba(0,201,177,0.18);
+    border: 1px solid rgba(0,201,177,0.4);
+    border-radius: 20px;
+    padding: 3px 14px;
+    font-size: 0.75rem;
+    color: var(--aqua);
+    letter-spacing: 1px;
+    margin-top: 10px;
+    font-weight: 600;
+}
 
 /* ── GLASS CARD ── */
-.glass-card {{
-  background: linear-gradient(145deg, var(--white-glass) 0%, rgba(255,255,255,0.02) 100%);
-  border: 1px solid var(--white-rim);
-  border-radius: 16px;
-  padding: 20px 24px;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.18);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}}
+.glass-card {
+    background: linear-gradient(145deg,
+        rgba(255,255,255,0.11) 0%,
+        rgba(255,255,255,0.05) 100%);
+    border: 1px solid var(--white-rim);
+    border-radius: 16px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow:
+        0 4px 24px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(0,0,0,0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.glass-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 40px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        0 0 30px rgba(0,201,177,0.12);
+    border-color: rgba(0,201,177,0.5);
+}
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+}
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: -40%; right: -15%;
+    width: 40%; height: 150%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+    transform: rotate(-20deg);
+    pointer-events: none;
+}
 
 /* ── METRIC CARDS ── */
-.metric-card {{
-  background: linear-gradient(145deg, var(--white-glass) 0%, rgba(0,150,200,0.05) 100%);
-  border: 1px solid var(--white-rim);
-  border-radius: 16px;
-  padding: 22px 18px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.20);
-  transition: all 0.3s ease;
-}}
+.metric-card {
+    background: linear-gradient(145deg,
+        rgba(255,255,255,0.13) 0%,
+        rgba(0,150,200,0.08) 100%);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 16px;
+    padding: 22px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 4px 20px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.20);
+    transition: all 0.3s ease;
+}
+.metric-card:hover {
+    border-color: var(--aqua);
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.3),
+        0 0 25px var(--aqua-glow),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+}
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+}
+.metric-value {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff, var(--aqua));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(0,201,177,0.4));
+    line-height: 1.1;
+}
+.metric-label {
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    font-weight: 600;
+}
 
-.metric-value {{
-  font-family: 'Exo 2', sans-serif;
-  font-size: 2.3rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--text-bright), var(--aqua));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.1;
-}}
+/* ── RESULT BADGES ── */
+.result-pass {
+    background: linear-gradient(135deg,
+        rgba(39,174,96,0.18) 0%,
+        rgba(0,201,177,0.12) 100%);
+    border: 1.5px solid rgba(39,174,96,0.6);
+    border-radius: 16px;
+    padding: 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 8px 32px rgba(39,174,96,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.result-pass::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(39,174,96,0.7), transparent);
+}
+.result-pass-text {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #a8f5c8, #27ae60);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    filter: drop-shadow(0 0 12px rgba(39,174,96,0.5));
+}
+.result-fail {
+    background: linear-gradient(135deg,
+        rgba(231,76,60,0.18) 0%,
+        rgba(192,57,43,0.10) 100%);
+    border: 1.5px solid rgba(231,76,60,0.6);
+    border-radius: 16px;
+    padding: 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 8px 32px rgba(231,76,60,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+}
+.result-fail::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(231,76,60,0.7), transparent);
+}
+.result-fail-text {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f5a8a8, #e74c3c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    filter: drop-shadow(0 0 12px rgba(231,76,60,0.5));
+}
+.result-sub {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    margin-top: 8px;
+    font-weight: 400;
+}
 
-.metric-label {{
-  font-size: 0.72rem;
-  color: var(--text-soft);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-top: 6px;
-  font-weight: 600;
-}}
+/* ── SECTION TITLE ── */
+.section-title {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 14px 0;
+}
+.section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--aqua-bright), var(--aqua));
+    box-shadow: 0 0 8px var(--aqua-glow);
+    flex-shrink: 0;
+}
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,201,177,0.3), transparent);
+    margin-left: 4px;
+}
 
 /* ── SIDEBAR ── */
-div[data-testid="stSidebar"] {{
-  background: {sidebar_bg} !important;
-  border-right: 1px solid var(--white-rim) !important;
-  backdrop-filter: blur(20px) !important;
-}}
-
-div[data-testid="stSidebar"] * {{
-  color: var(--text-bright) !important;
-}}
-
-div[data-testid="stSidebar"] h3 {{
-  font-family: 'Exo 2', sans-serif !important;
-  letter-spacing: 1px !important;
-  color: var(--aqua) !important;
-}}
+div[data-testid="stSidebar"] {
+    background: linear-gradient(180deg,
+        rgba(6,23,40,0.97) 0%,
+        rgba(10,37,64,0.97) 100%) !important;
+    border-right: 1px solid rgba(255,255,255,0.10) !important;
+    backdrop-filter: blur(20px) !important;
+}
+div[data-testid="stSidebar"]::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(0,201,177,0.3), transparent);
+}
+div[data-testid="stSidebar"] * { color: var(--text-bright) !important; }
+div[data-testid="stSidebar"] h3 {
+    font-family: 'Exo 2', sans-serif !important;
+    letter-spacing: 1px !important;
+    color: var(--aqua) !important;
+}
 
 /* ── FORM INPUTS ── */
-.stSelectbox > div > div, .stNumberInput > div > div > input, .stTextInput > div > div > input {{
-  background: var(--white-glass) !important;
-  border: 1px solid var(--white-rim) !important;
-  color: var(--text-bright) !important;
-  border-radius: 10px !important;
-}}
+.stSelectbox > div > div,
+.stNumberInput > div > div > input,
+.stTextInput > div > div > input {
+    background: linear-gradient(145deg,
+        rgba(255,255,255,0.08) 0%,
+        rgba(0,100,160,0.06) 100%) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    color: var(--text-bright) !important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(8px) !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.stSelectbox > div > div:focus-within,
+.stNumberInput > div > div:focus-within,
+.stTextInput > div > div:focus-within {
+    border-color: var(--aqua) !important;
+    box-shadow: 0 0 0 3px rgba(0,201,177,0.15) !important;
+}
+
+/* ── BUTTON ── */
+.stButton > button {
+    background: linear-gradient(135deg,
+        rgba(0,201,177,0.9) 0%,
+        rgba(0,150,210,0.85) 100%) !important;
+    color: #ffffff !important;
+    font-family: 'Exo 2', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 2px !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    border-radius: 10px !important;
+    padding: 12px 28px !important;
+    text-transform: uppercase !important;
+    transition: all 0.25s ease !important;
+    box-shadow:
+        0 4px 15px rgba(0,201,177,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.25) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow:
+        0 10px 30px rgba(0,201,177,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.35) !important;
+    background: linear-gradient(135deg,
+        rgba(0,230,200,0.95) 0%,
+        rgba(0,170,230,0.9) 100%) !important;
+}
 
 /* ── TABS ── */
-.stTabs [data-baseweb="tab-list"] {{
-  background: var(--frost) !important;
-  border-radius: 12px !important;
-  border: 1px solid var(--white-rim) !important;
-}}
+.stTabs [data-baseweb="tab-list"] {
+    background: rgba(255,255,255,0.05) !important;
+    border-radius: 12px !important;
+    padding: 4px !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    gap: 4px !important;
+}
+.stTabs [data-baseweb="tab"] {
+    background: transparent !important;
+    border-radius: 9px !important;
+    color: var(--text-soft) !important;
+    font-family: 'Exo 2', sans-serif !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.2s !important;
+    border: none !important;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    background: rgba(255,255,255,0.08) !important;
+    color: var(--text-bright) !important;
+}
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg,
+        rgba(0,201,177,0.22) 0%,
+        rgba(0,150,210,0.15) 100%) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(0,201,177,0.35) !important;
+    box-shadow: 0 2px 10px rgba(0,201,177,0.15) !important;
+}
 
-.stTabs [data-baseweb="tab"] {{
-  color: var(--text-soft) !important;
-}}
+/* ── DATAFRAME ── */
+.stDataFrame {
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
 
-.stTabs [aria-selected="true"] {{
-  background: linear-gradient(135deg, rgba(0,201,177,0.22) 0%, rgba(0,150,210,0.15) 100%) !important;
-  color: var(--text-bright) !important;
-  border: 1px solid rgba(0,201,177,0.35) !important;
-}}
+/* ── ALERTS / INFO ── */
+.stInfo, .stWarning, .stSuccess, .stError {
+    border-radius: 12px !important;
+    backdrop-filter: blur(8px) !important;
+}
 
-h1, h2, h3, h4, h5, h6, p, span {{
-  color: var(--text-bright) !important;
-}}
+/* ── MISC OVERRIDES ── */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-bright) !important;
+    font-family: 'Exo 2', sans-serif !important;
+}
+p, span { color: var(--text-bright); }
+.stMarkdown p { color: var(--text-mid) !important; }
 
-.stMarkdown p {{
-  color: var(--text-mid) !important;
-}}
+/* Divider */
+hr {
+    border: none !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent, rgba(0,201,177,0.3), transparent) !important;
+    margin: 16px 0 !important;
+}
+
+/* Download button */
+.stDownloadButton > button {
+    background: linear-gradient(135deg,
+        rgba(255,255,255,0.12) 0%,
+        rgba(0,150,210,0.10) 100%) !important;
+    border: 1px solid rgba(0,201,177,0.4) !important;
+    color: var(--aqua) !important;
+    font-family: 'Exo 2', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    border-radius: 10px !important;
+    backdrop-filter: blur(8px) !important;
+    transition: all 0.25s !important;
+}
+.stDownloadButton > button:hover {
+    background: linear-gradient(135deg,
+        rgba(0,201,177,0.18) 0%,
+        rgba(0,150,210,0.15) 100%) !important;
+    box-shadow: 0 0 20px rgba(0,201,177,0.25) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Caption */
+.stCaption {
+    color: var(--text-soft) !important;
+    font-style: italic;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -398,7 +632,6 @@ st.markdown("""
 # SIDEBAR
 # ─────────────────────────────────────────────
 with st.sidebar:
-    st.sidebar.toggle("🌙 Aktifkan Dark Mode", value=True)
     st.markdown("### ⚙️ Parameter Sampling")
     st.markdown("---")
     lot_size = st.number_input("Ukuran Lot (Batch)", min_value=2, max_value=999999, value=1000, step=50)
