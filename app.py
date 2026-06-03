@@ -729,8 +729,8 @@ with tab1:
 - Confidence level: **~95%** (General Inspection Level II)
         """)
 
-# ── TAB 3: TABEL AQL ─────────────────────────
-with tab3:
+# ── TAB 2: TABEL AQL ─────────────────────────
+with tab2:
     st.markdown('<div class="section-title">Tabel Referensi AQL (ISO 2859-1 — Normal Inspection)</div>', unsafe_allow_html=True)
 
     rows = []
@@ -774,7 +774,7 @@ with tab3:
 """)
 
 # ── TAB 3: LAPORAN ────────────────────────────
-with tab4:
+with tab3:
     st.markdown('<div class="section-title">Laporan Hasil Sampling</div>', unsafe_allow_html=True)
 
     from datetime import datetime
