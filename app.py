@@ -788,10 +788,22 @@ with tab2:
     
     col1, col2 = st.columns(2)
 
-    # 1. GAUGE CHART
+   # 1. GAUGE CHART
     with col1:
-        decision_pass = n_defects <= ac 
+        # PETA WARNA DARURAT (Memastikan variabel warna sudah terdefinisi)
+        COQUETTE_PINK = "#F7D7E3"
+        COQUETTE_SAGE = "#D0E1D4"
+        COQUETTE_ROSE = "#D3A1B0"
+        COQUETTE_DARK_TEXT = "#654E4E"
+        COQUETTE_BORDER = "#EECAD5"
+        
+        # Penentu keputusan kelolosan lot
+        if 'decision_pass' not in locals() and 'decision_pass' not in globals():
+            decision_pass = n_defects <= ac
+
+        # Baris yang tadi eror, sekarang dijamin aman
         gauge_color = COQUETTE_SAGE if decision_pass else COQUETTE_PINK
+        
         fig_gauge = go.Figure(go.Indicator(
             mode="gauge+number+delta",
             value=n_defects,
@@ -804,9 +816,9 @@ with tab2:
                 'borderwidth': 1.5,
                 'bordercolor': COQUETTE_BORDER,
                 'steps': [
-                    {'range': [0, ac],                            'color': 'rgba(208,225,212,0.4)'}, # Sage transparan
-                    {'range': [ac, re],                           'color': 'rgba(252,245,247,0.8)'}, # Cream
-                    {'range': [re, max(re*2, n_defects*1.5, 5)],   'color': 'rgba(247,215,227,0.4)'}, # Pink transparan
+                    {'range': [0, ac],                            'color': 'rgba(208,225,212,0.4)'}, 
+                    {'range': [ac, re],                           'color': 'rgba(252,245,247,0.8)'}, 
+                    {'range': [re, max(re*2, n_defects*1.5, 5)],   'color': 'rgba(247,215,227,0.4)'}, 
                 ],
                 'threshold': {'line': {'color': COQUETTE_ROSE, 'width': 3}, 'thickness': 0.75, 'value': re}
             },
