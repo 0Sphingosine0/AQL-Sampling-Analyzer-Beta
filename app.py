@@ -779,7 +779,8 @@ with tab1:
 - Rasio sampling: **{sampling_ratio:.1f}%** dari lot
 - Confidence level: **~95%** (General Inspection Level II)
         """)
-# ── TAB 2: VISUALISASI (COQUETTE EDITION) ────────────────────────
+        
+# ── TAB 2: VISUALISASI ────────────────────────
 with tab2:
     st.markdown('<div class="section-title">Visualisasi Sampling</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-subtitle">~ analisis keanggunan akurasi data ~</div>', unsafe_allow_html=True)
@@ -891,6 +892,7 @@ with tab2:
         )
     )
     st.plotly_chart(fig_oc, use_container_width=True)
+    
 # ── TAB 3: TABEL AQL ─────────────────────────
 with tab3:
     st.markdown('<div class="section-title">Tabel Referensi AQL (ISO 2859-1 — Normal Inspection)</div>', unsafe_allow_html=True)
