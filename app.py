@@ -621,59 +621,6 @@ def aero_layout(**kwargs):
 # HEADER
 # ─────────────────────────────────────────────
 st.markdown("""
-# 2. GANTI BLOK ST.MARKDOWN CSS ANDA MENJADI SEPERTI INI:
-
-if theme_mode:
-    # --- CONFIG DARK MODE (Frutiger Aero Asli) ---
-    bg_gradient  = "linear-gradient(160deg, #061728 0%, #0d2f50 35%, #07213a 65%, #041220 100%)"
-    text_bright  = "#e8f8ff"
-    text_mid     = "#a8d8ea"
-    text_soft    = "#6ba3be"
-    white_glass  = "rgba(255, 255, 255, 0.11)"
-    white_rim    = "rgba(255, 255, 255, 0.22)"
-else:
-    # --- CONFIG LIGHT MODE (Kontras Tinggi & Cerah) ---
-    bg_gradient  = "linear-gradient(160deg, #eef7ff 0%, #d2e9f9 50%, #bce0fd 100%)"
-    text_bright  = "#0a2540"       # Diubah jadi gelap supaya terbaca di latar terang
-    text_mid     = "#1a5276"       # Biru tua medium
-    text_soft    = "#2e86c1"       # Biru langit pekat
-    white_glass  = "rgba(255, 255, 255, 0.65)" # Lebih solid agar kontras
-    white_rim    = "rgba(10, 37, 64, 0.25)"   # Border gelap tipis
-
-# Gunakan huruf 'f' sebelum triple quotes agar variabel di atas bisa masuk ke CSS
-st.markdown(f"""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Exo+2:wght@300;400;600;700&display=swap');
-
-:root {{
-  --sky-deep:    #0a2540;
-  --sky-mid:     #1a5276;
-  --sky-light:   #2e86c1;
-  --aqua:        #00c9b1;
-  --aqua-bright: #00ffdd;
-  --aqua-glow:   rgba(0,201,177,0.35);
-  --green-fresh: #27ae60;
-  --danger:      #e74c3c;
-  --warn:        #f39c12;
-  
-  /* Variabel di bawah ini akan otomatis berubah nilainya */
-  --bg-grad: {bg_gradient};
-  --text-bright: {text_bright};
-  --text-mid: {text_mid};
-  --text-soft: {text_soft};
-  --white-glass: {white_glass};
-  --white-rim: {white_rim};
-}}
-
-.stApp {{
-  background: var(--bg-grad) !important;
-  background-attachment: fixed !important;
-  color: var(--text-bright) !important;
-  font-family: 'Nunito', sans-serif;
-}}
-/* ... sisa kode CSS Anda di bawahnya biarkan saja ... */
-</style>
-""", unsafe_allow_html=True)
 <div class="app-header">
     <div class="app-title">🔬 AQL SAMPLING ANALYZER</div>
     <div class="app-subtitle">Pengolahan Data Sampling &amp; Acceptance Quality Limit · ISO 2859-1</div>
