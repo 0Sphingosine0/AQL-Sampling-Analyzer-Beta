@@ -632,6 +632,7 @@ st.markdown("""
 # SIDEBAR
 # ─────────────────────────────────────────────
 with st.sidebar:
+theme_mode = st.sidebar.toggle("🌙 Aktifkan Dark Mode", value=True)
     st.markdown("### ⚙️ Parameter Sampling")
     st.markdown("---")
     lot_size = st.number_input("Ukuran Lot (Batch)", min_value=2, max_value=999999, value=1000, step=50)
