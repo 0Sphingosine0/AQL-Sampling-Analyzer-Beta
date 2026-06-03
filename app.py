@@ -711,7 +711,7 @@ decision_pass = n_defects <= ac
 # ─────────────────────────────────────────────
 # TAB LAYOUT
 # ─────────────────────────────────────────────
-tab1, tab2, tab3 = st.tabs(["🎀 Hasil Analisis", "🌸 Tabel AQL", "🌷 Laporan"])
+tab1, tab2, tab3, tab4 = st.tabs(["🎀 Hasil Analisis", "🌺Visualisasi", "🌸 Tabel AQL", "🌷 Laporan"])
 
 # ── TAB 1: HASIL ──────────────────────────────
 with tab1:
@@ -779,9 +779,120 @@ with tab1:
 - Rasio sampling: **{sampling_ratio:.1f}%** dari lot
 - Confidence level: **~95%** (General Inspection Level II)
         """)
-
-# ── TAB 2: TABEL AQL ─────────────────────────
+# ── TAB 2: VISUALISASI (COQUETTE EDITION) ────────────────────────
 with tab2:
+    st.markdown('<div class="section-title">Visualisasi Sampling</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-subtitle">~ analisis keanggunan akurasi data ~</div>', unsafe_allow_html=True)
+    st.markdown('<div class="coquette-bow-decor"></div>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2)
+
+    # 1. GAUGE CHART
+    with col1:
+        gauge_color = COQUETTE_SAGE if decision_pass else COQUETTE_PINK
+        fig_gauge = go.Figure(go.Indicator(
+            mode="gauge+number+delta",
+            value=n_defects,
+            delta={'reference': ac, 'increasing': {'color': COQUETTE_ROSE}, 'decreasing': {'color': COQUETTE_SAGE}},
+            title={'text': "Jumlah Defek vs Batas Terima", 'font': {'color': COQUETTE_DARK_TEXT, 'family': FONT_FAMILY, 'size': 14, 'style': 'italic'}},
+            gauge={
+                'axis': {'range': [0, max(re*2, n_defects*1.5, 5)], 'tickcolor': COQUETTE_ROSE},
+                'bar': {'color': gauge_color, 'thickness': 0.3},
+                'bgcolor': 'rgba(255,255,255,0.9)',
+                'borderwidth': 1.5,
+                'bordercolor': COQUETTE_BORDER,
+                'steps': [
+                    {'range': [0, ac],                            'color': 'rgba(208,225,212,0.4)'}, # Sage transparan
+                    {'range': [ac, re],                           'color': 'rgba(252,245,247,0.8)'}, # Cream
+                    {'range': [re, max(re*2, n_defects*1.5, 5)],   'color': 'rgba(247,215,227,0.4)'}, # Pink transparan
+                ],
+                'threshold': {'line': {'color': COQUETTE_ROSE, 'width': 3}, 'thickness': 0.75, 'value': re}
+            },
+            number={'font': {'color': COQUETTE_DARK_TEXT, 'family': FONT_FAMILY, 'size': 38}}
+        ))
+        fig_gauge.update_layout(**coquette_layout(height=320))
+        st.plotly_chart(fig_gauge, use_container_width=True)
+
+    # 2. DONUT CHART
+    with col2:
+        good = max(sample_size - n_defects, 0)
+        fig_pie = go.Figure(go.Pie(
+            labels=['Kondisi Baik', 'Defek ditemukan'],
+            values=[good, n_defects],
+            hole=0.6,
+            marker=dict(
+                colors=[COQUETTE_SAGE, COQUETTE_PINK],
+                line=dict(color=COQUETTE_BORDER, width=1.5)
+            ),
+            textfont=dict(family=FONT_FAMILY, size=13, color=COQUETTE_DARK_TEXT),
+        ))
+        fig_pie.update_layout(
+            **coquette_layout(
+                height=320,
+                title=dict(text='Komposisi Kualitas Sampel', font=dict(family=FONT_FAMILY, color=COQUETTE_DARK_TEXT, size=14, style='italic')),
+            )
+        )
+        st.plotly_chart(fig_pie, use_container_width=True)
+
+    # 3. SENSITIVITY BAR CHART
+    st.markdown('<div class="section-title">Zona Keputusan</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-subtitle">~ status batas penerimaan per jumlah defek ~</div>', unsafe_allow_html=True)
+    st.markdown('<div class="coquette-bow-decor"></div>', unsafe_allow_html=True)
+    
+    max_def = max(int(re * 3), 10)
+    defect_range = list(range(0, max_def + 1))
+    colors_bar   = [COQUETTE_SAGE if d <= ac else COQUETTE_PINK for d in defect_range]
+    
+    fig_bar = go.Figure(go.Bar(
+        x=defect_range,
+        y=[1] * len(defect_range),
+        marker=dict(color=colors_bar, line=dict(color=COQUETTE_BORDER, width=1)),
+        text=['TERIMA' if d <= ac else 'TOLAK' for d in defect_range],
+        textposition='inside',
+        textfont=dict(family=FONT_FAMILY, size=10, color=COQUETTE_DARK_TEXT),
+        hovertemplate="Jumlah Defek: %{x}<br>Status: %{text}<extra></extra>"
+    ))
+    fig_bar.add_vline(x=ac+0.5, line_color=COQUETTE_ROSE, line_dash='dash', line_width=2,
+                     annotation_text=f'Batas Ac={ac}', annotation_font_color=COQUETTE_ROSE)
+    fig_bar.update_layout(
+        **coquette_layout(
+            height=200,
+            xaxis=dict(title='Jumlah Defek', gridcolor='rgba(238,202,213,0.3)', tickcolor=COQUETTE_ROSE, color=COQUETTE_DARK_TEXT, dtick=1),
+            yaxis=dict(visible=False, showgrid=False)
+        )
+    )
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+    # 4. OC CURVE
+    st.markdown('<div class="section-title">Kurva Karakteristik Operasi</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-subtitle">~ probabilitas penerimaan lot produk ~</div>', unsafe_allow_html=True)
+    st.markdown('<div class="coquette-bow-decor"></div>', unsafe_allow_html=True)
+    
+    p_values  = np.linspace(0, 0.3, 200)
+    pa_values = stats.binom.cdf(ac, sample_size, p_values) * 100
+
+    fig_oc = go.Figure()
+    fig_oc.add_trace(go.Scatter(
+        x=p_values*100, y=pa_values,
+        mode='lines', name='P(Accept)',
+        line=dict(color=COQUETTE_ROSE, width=3),
+        fill='tozeroy', fillcolor='rgba(247,215,227,0.2)', # Isian pink transparan lembut
+        hovertemplate="Rasio Defek: %{x:.2f}%<br>P(Diterima): %{y:.2f}%<extra></extra>"
+    ))
+    fig_oc.add_vline(x=aql_level, line_color=COQUETTE_DARK_TEXT, line_dash='dot', line_width=1.5,
+                     annotation_text=f'AQL={aql_level}%', annotation_font_color=COQUETTE_DARK_TEXT)
+    fig_oc.add_hline(y=95, line_color='rgba(101,78,78,0.4)', line_dash='dot',
+                     annotation_text='95% Kriteria Produsen', annotation_font_color=COQUETTE_DARK_TEXT)
+    fig_oc.update_layout(
+        **coquette_layout(
+            height=300,
+            xaxis=dict(title='Defect Rate di Pasar (%)', gridcolor='rgba(238,202,213,0.3)', tickcolor=COQUETTE_ROSE, color=COQUETTE_DARK_TEXT),
+            yaxis=dict(title='P(Accept) %', gridcolor='rgba(238,202,213,0.3)', tickcolor=COQUETTE_ROSE, color=COQUETTE_DARK_TEXT, range=[0,105])
+        )
+    )
+    st.plotly_chart(fig_oc, use_container_width=True)
+# ── TAB 3: TABEL AQL ─────────────────────────
+with tab3:
     st.markdown('<div class="section-title">Tabel Referensi AQL (ISO 2859-1 — Normal Inspection)</div>', unsafe_allow_html=True)
 
     rows = []
@@ -824,8 +935,8 @@ with tab2:
 | 281–500 | H | 50 | | | |
 """)
 
-# ── TAB 3: LAPORAN ────────────────────────────
-with tab3:
+# ── TAB 4: LAPORAN ────────────────────────────
+with tab4:
     st.markdown('<div class="section-title">Laporan Hasil Sampling</div>', unsafe_allow_html=True)
 
     from datetime import datetime
