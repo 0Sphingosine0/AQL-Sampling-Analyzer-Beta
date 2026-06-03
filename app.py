@@ -660,7 +660,7 @@ decision_pass = n_defects <= ac
 # ─────────────────────────────────────────────
 # TAB LAYOUT
 # ─────────────────────────────────────────────
-tab1, tab2, tab4 = st.tabs(["📊 Hasil Analisis", "📋 Tabel AQL", "📄 Laporan"])
+tab1, tab2, tab3 = st.tabs(["📊 Hasil Analisis","📋 Tabel AQL","📄 Laporan"])
 
 # ── TAB 1: HASIL ──────────────────────────────
 with tab1:
@@ -773,7 +773,7 @@ with tab3:
 | 281–500 | H | 50 | | | |
 """)
 
-# ── TAB 4: LAPORAN ────────────────────────────
+# ── TAB 3: LAPORAN ────────────────────────────
 with tab4:
     st.markdown('<div class="section-title">Laporan Hasil Sampling</div>', unsafe_allow_html=True)
 
